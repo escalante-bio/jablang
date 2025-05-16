@@ -1,0 +1,19 @@
+[project]
+name = "jablang"
+version = "0.1.0"
+description = "JAX translation of AbLang PLM"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ablang>=0.3.1",
+    "einops>=0.8.0",
+    "equinox>=0.12.1",
+    "jax==0.5.3",
+    "jaxtyping>=0.3.2",
+    "marimo>=0.13.9",
+    "numpy>=1.26.3",
+    "ruff>=0.11.10",
+]
+
+[tool.uv]
+package = true
