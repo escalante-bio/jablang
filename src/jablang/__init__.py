@@ -320,40 +320,6 @@ class EncoderBlock(eqx.Module):
         )
         
 
-# @register_from_torch(esm.layers.transformer_stack.TransformerStack)
-# class TransformerStack(AbstractFromTorch):
-#     block_params: UnifiedTransformerBlock
-#     block_static: UnifiedTransformerBlock
-#     norm: LayerNorm
-
-#     def __call__(self, x: Float[Array, "B N D"]):
-#         def body(x, params):
-#             layer = eqx.combine(self.block_static, params)
-#             x = layer(x)
-#             return x, x
-
-#         final_state, all_states = jax.lax.scan(
-#             body,
-#             x,
-#             self.block_params,
-#         )
-#         return self.norm(final_state), all_states
-
-#     @staticmethod
-#     def from_torch(m: esm.layers.transformer_stack.TransformerStack):
-#         blocks = [from_torch(b) for b in m.blocks]
-#         block_params = jax.tree.map(
-#             lambda *v: jnp.stack(v),
-#             *[eqx.filter(b, eqx.is_inexact_array) for b in blocks],
-#         )
-#         block_static = eqx.partition(blocks[0], eqx.is_inexact_array)[1]
-#         return TransformerStack(
-#             block_params=block_params,
-#             block_static=block_static,
-#             norm=from_torch(m.norm),
-#         )
-
-
 @register_from_torch(ablang.encoderblocks.EncoderBlocks)
 class EncoderBlocks(eqx.Module):
     layer_params: EncoderBlock
