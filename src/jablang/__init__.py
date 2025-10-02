@@ -341,7 +341,7 @@ class EncoderBlocks(eqx.Module):
     @staticmethod
     def from_torch(m: ablang.encoderblocks.EncoderBlocks):
         blocks = [from_torch(b) for b in m.Layers]
-        block_params = jax.tree_map(
+        block_params = jax.tree.map(
             lambda *v: jnp.stack(v),
             *[eqx.filter(b, eqx.is_inexact_array) for b in blocks],
         )
